@@ -1,21 +1,13 @@
 import "./App.css";
 import Header from "../Header/Header";
+import WeatherCard from "../Main/WeatherCard/WeatherCard";
 
 function App() {
   return (
     <div>
       <Header />
       <main className="main">
-        <section className="weather" id="weather">
-          <div className="weather_info">75F</div>
-          <div>
-            <img
-              src="/images/day/sunny-day.svg"
-              alt="weather tile"
-              className="weather_image"
-            />
-          </div>
-        </section>
+        <WeatherCard day={true} type="sunny" />
         <section id="card-section">card Section</section>
       </main>
     </div>
