@@ -81,7 +81,7 @@
 .modal__submit-button {
   margin: 24px 0 0 0;
   font-size: 16px;
-  padding: 8px 0 8px 0;
+  padding: 8px 16px 8px 16px;
   max-width: 124px;
   color: white;
   background-color: gray;
