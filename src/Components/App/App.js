@@ -3,11 +3,11 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer.js";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 
 function App() {
-  const weatherTemp = "65°F";
+  const weatherTemp = 65;
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
 
