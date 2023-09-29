@@ -8,7 +8,6 @@ import ItemModal from "../ItemModal/ItemModal";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 
 function App() {
-  const weatherTemp = 65;
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
@@ -39,25 +38,41 @@ function App() {
       <Footer />
       {activeModal === "create" && (
         <ModalWithForm title="New Garment" onClose={handleCloseModal}>
-          <label>
-            Name
-            <input type="text" name="name" minLength="1" maxLength="30" />
-          </label>
-          <label>
-            Image
-            <input type="text" name="link" minLength="1" maxLength="30" />
-          </label>
-          <p>Select the weather type</p>
+          <fieldset className="modal__form-fieldset">
+            <label>
+              Name
+              <input
+                className="modal__form-input"
+                type="text"
+                name="name"
+                minLength="1"
+                maxLength="30"
+                placeholder="Name"
+              />
+            </label>
+            <label>
+              Image
+              <input
+                className="modal__form-input"
+                type="text"
+                name="link"
+                minLength="1"
+                maxLength="30"
+                placeholder="Image URL"
+              />
+            </label>
+          </fieldset>
+          <p className="modal__subheading">Select the weather type</p>
           <div>
-            <div>
+            <div className="modal__radio-button">
               <input type="radio" id="hot" value="hot" />
               <label>Hot</label>
             </div>
-            <div>
+            <div className="modal__radio-button">
               <input type="radio" id="warm" value="warm" />
               <label>Warm</label>
             </div>
-            <div>
+            <div className="modal__radio-button">
               <input type="radio" id="cold" value="cold" />
               <label>Cold</label>
             </div>
