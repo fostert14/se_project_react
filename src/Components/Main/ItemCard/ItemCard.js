@@ -2,7 +2,7 @@ import "./ItemCard.css";
 
 const ItemCard = ({ item, onSelectCard }) => {
   return (
-    <div>
+    <div className="card">
       <div>
         <img
           className="card_image"
@@ -12,7 +12,14 @@ const ItemCard = ({ item, onSelectCard }) => {
           }}
         />
       </div>
-      <div className="card_name">{item.name}</div>
+      <div className="card__elements">
+        <div className="card__elements-name">{item.name}</div>
+        <button
+          className="card__like-button"
+          type="button"
+          aria-label="Like Button"
+        ></button>
+      </div>
     </div>
   );
 };
