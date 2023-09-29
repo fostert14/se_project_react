@@ -12,8 +12,7 @@ const ModalWithForm = ({
     <div className={`modal modal_type_${name}`}>
       <div className="modal__content">
         <button type="button" onClick={onClose}>
-          {" "}
-          Close{" "}
+          Close
         </button>
         <h3> {title} </h3>
         <form>{children}</form>
