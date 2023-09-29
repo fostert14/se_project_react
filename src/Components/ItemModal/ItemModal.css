@@ -1,0 +1,42 @@
+.modal__popup-container {
+  display: flex;
+  max-width: 498px;
+  max-height: 610px;
+  background-color: white;
+  font-family: Inter, sans-serif, serif;
+  line-height: 29px;
+  border-radius: 10px;
+  color: black;
+  overflow: hidden;
+  flex-direction: column;
+  font-size: 20px;
+  position: relative;
+}
+
+.modal__popup-image {
+  width: 282px;
+  height: 282px;
+}
+
+.modal__exit-button {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  background-image: url("../../images/exit-button.svg");
+  width: 16px;
+  height: 16px;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  background-color: transparent;
+}
+
+.modal__caption {
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0 32px 0;
+}
