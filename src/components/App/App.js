@@ -24,11 +24,31 @@ function App() {
   };
 
   useEffect(() => {
-    getForecastWeather().then((data) => {
-      const temperature = parseWeatherData(data);
-      console.log(temperature);
-      setTemp(temperature);
-    });
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
+
+  useEffect(() => {
+    getForecastWeather()
+      .then((data) => {
+        const temperature = parseWeatherData(data);
+        setTemp(temperature);
+      })
+      .catch((error) => {
+        console.error("Error fetching weather data", error);
+      });
   }, []);
 
   return (
@@ -65,16 +85,16 @@ function App() {
           <p className="modal__subheading">Select the weather type</p>
           <div>
             <div className="modal__radio-button">
-              <input type="radio" id="hot" value="hot" />
-              <label>Hot</label>
+              <input name="weatherType" type="radio" id="hot" value="hot" />
+              <label htmlFor="hot">Hot</label>
             </div>
             <div className="modal__radio-button">
-              <input type="radio" id="warm" value="warm" />
-              <label>Warm</label>
+              <input name="weatherType" type="radio" id="warm" value="warm" />
+              <label htmlFor="warm">Warm</label>
             </div>
             <div className="modal__radio-button">
-              <input type="radio" id="cold" value="cold" />
-              <label>Cold</label>
+              <input name="weatherType" type="radio" id="cold" value="cold" />
+              <label htmlFor="cold">Cold</label>
             </div>
           </div>
         </ModalWithForm>

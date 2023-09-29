@@ -8,18 +8,6 @@ const ItemModal = ({ selectedCard, onClose }) => {
     }
   };
 
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [onClose]);
-
   return (
     <>
       <div className={`modal`} onClick={handleBackgroundClick}>
