@@ -1,4 +1,6 @@
 import "./Header.css";
+import logo from "../../images/logo.svg";
+import avatar from "../../images/avatar.svg";
 
 const getCurrentDate = () => {
   const today = new Date();
@@ -12,7 +14,7 @@ const Header = ({ onCreateModal }) => {
     <header className="header">
       <div className="header__logo">
         <div>
-          <img src={require("../../images/logo.svg").default} alt="wtwr logo" />
+          <img src={logo} alt="wtwr logo" />
         </div>
         <div>{getCurrentDate()}, Kansas City</div>
       </div>
@@ -26,11 +28,11 @@ const Header = ({ onCreateModal }) => {
             + Add Clothes
           </button>
         </div>
-        <div>Trevor Foster</div>
+        <h3>Trevor Foster</h3>
         <div>
           <img
             className="header__avatar-img"
-            src={require("../../images/avatar.svg").default}
+            src={avatar}
             alt="avatar profile"
           />
         </div>
