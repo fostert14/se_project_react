@@ -14,8 +14,8 @@
 }
 
 .modal__popup-image {
-  width: 282px;
-  height: 282px;
+  width: 498px;
+  height: 498px;
 }
 
 .modal__exit-button {
@@ -32,11 +32,17 @@
 }
 
 .modal__caption {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 24px;
-  font-weight: 400;
+  font-weight: 700;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 20px 0 32px 0;
+  padding: 20px 0 32px 32px;
+  margin: 0;
+}
+
+.modal__caption > * {
+  /* This targets all direct children of .modal__caption */
+  margin: 0;
 }
