@@ -1,0 +1,16 @@
+.sideBar {
+  display: flex;
+  align-items: center;
+  margin: 0 116px 0 40px;
+  gap: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.sideBar__name {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+}
