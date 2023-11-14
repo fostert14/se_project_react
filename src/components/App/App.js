@@ -13,12 +13,15 @@ import {
   Route,
   Switch,
 } from "react-router-dom/cjs/react-router-dom.min.js";
+import AddItemModal from "../AddItemModal/AddItemModal.js";
+import { defaultClothingItems } from "../../utils/constants.js";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
   const [currentTempUnit, setCurrentTemperatureUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -29,6 +32,11 @@ function App() {
   const handleSelectedCard = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
+  };
+
+  const onAddItem = (newItem) => {
+    const itemWithID = { ...newItem, _id: Date.now() };
+    setClothingItems([itemWithID, ...clothingItems]);
   };
 
   const handleToggleSwitchChange = () => {
@@ -78,52 +86,17 @@ function App() {
             <Profile
               onCreateModal={handleCreateModal}
               onSelectCard={handleSelectedCard}
+              clothingItems={clothingItems}
             />
           </Route>
         </Switch>
         <Footer />
         {activeModal === "create" && (
-          <ModalWithForm title="New Garment" onClose={handleCloseModal}>
-            <fieldset className="modal__form-fieldset">
-              <label>
-                Name
-                <input
-                  className="modal__form-input"
-                  type="text"
-                  name="name"
-                  minLength="1"
-                  maxLength="30"
-                  placeholder="Name"
-                />
-              </label>
-              <label>
-                Image
-                <input
-                  className="modal__form-input"
-                  type="text"
-                  name="link"
-                  minLength="1"
-                  maxLength="30"
-                  placeholder="Image URL"
-                />
-              </label>
-            </fieldset>
-            <p className="modal__subheading">Select the weather type</p>
-            <div>
-              <div className="modal__radio-button">
-                <input name="weatherType" type="radio" id="hot" value="hot" />
-                <label htmlFor="hot">Hot</label>
-              </div>
-              <div className="modal__radio-button">
-                <input name="weatherType" type="radio" id="warm" value="warm" />
-                <label htmlFor="warm">Warm</label>
-              </div>
-              <div className="modal__radio-button">
-                <input name="weatherType" type="radio" id="cold" value="cold" />
-                <label htmlFor="cold">Cold</label>
-              </div>
-            </div>
-          </ModalWithForm>
+          <AddItemModal
+            selectedCard={selectedCard}
+            onClose={handleCloseModal}
+            onAddItem={onAddItem}
+          />
         )}
         {activeModal === "preview" && (
           <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />

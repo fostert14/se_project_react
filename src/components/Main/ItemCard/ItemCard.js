@@ -1,6 +1,7 @@
 import "./ItemCard.css";
 
 const ItemCard = ({ item, onSelectCard }) => {
+  console.log("ImageUrl", item.link);
   return (
     <div className="card">
       <div>
