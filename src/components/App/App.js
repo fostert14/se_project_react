@@ -35,9 +35,13 @@ function App() {
   };
 
   const deleteCard = (card) => {
-    deleteItem(card._id).then(() => {
-      setClothingItems(clothingItems.filter((item) => item._id !== card._id));
-    });
+    deleteItem(card._id)
+      .then(() => {
+        setClothingItems(clothingItems.filter((item) => item._id !== card._id));
+      })
+      .catch((error) => {
+        console.error("Error deleting item", error);
+      });
   };
 
   const onAddItem = (newItem) => {
@@ -55,11 +59,15 @@ function App() {
   };
 
   useEffect(() => {
-    getItems().then((fetchedItems) => {
-      if (fetchedItems) {
-        setClothingItems(fetchedItems);
-      }
-    });
+    getItems()
+      .then((fetchedItems) => {
+        if (fetchedItems) {
+          setClothingItems(fetchedItems);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching items", error);
+      });
   }, []);
 
   useEffect(() => {
