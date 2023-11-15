@@ -48,6 +48,7 @@ function App() {
     addItem(newItem)
       .then(() => {
         setClothingItems([newItem, ...clothingItems]);
+        handleCloseModal();
       })
       .catch((error) => {
         console.error("Error adding item", error);
