@@ -20,16 +20,12 @@ export function addItem(item) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(item),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Error ${response.status}`);
-    })
-    .catch((error) => {
-      console.error("Error adding item", error);
-    });
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(`Error ${response.status}`);
+  });
 }
 
 export function deleteItem(id) {

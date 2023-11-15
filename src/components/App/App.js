@@ -41,9 +41,13 @@ function App() {
   };
 
   const onAddItem = (newItem) => {
-    addItem(newItem).then((addedItem) => {
-      setClothingItems([addedItem, ...clothingItems]);
-    });
+    addItem(newItem)
+      .then(() => {
+        setClothingItems([newItem, ...clothingItems]);
+      })
+      .catch((error) => {
+        console.error("Error adding item", error);
+      });
   };
 
   const handleToggleSwitchChange = () => {
