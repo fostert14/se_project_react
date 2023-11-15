@@ -22,7 +22,7 @@ const ItemModal = ({ selectedCard, onClose, onDelete }) => {
         ></button>
         <img
           className="modal__popup-image"
-          src={selectedCard.link}
+          src={selectedCard.imageUrl}
           alt={selectedCard.name}
         />
         <div className="modal__footer">

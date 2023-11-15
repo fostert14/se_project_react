@@ -14,14 +14,14 @@ import {
   Switch,
 } from "react-router-dom/cjs/react-router-dom.min.js";
 import AddItemModal from "../AddItemModal/AddItemModal.js";
-import { defaultClothingItems } from "../../utils/constants.js";
+import { getItems, addItem, deleteItem } from "../../utils/api.js";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
   const [currentTempUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -35,19 +35,28 @@ function App() {
   };
 
   const deleteCard = (card) => {
-    setClothingItems((prevItems) =>
-      prevItems.filter((item) => item._id !== card._id)
-    );
+    deleteItem(card._id).then(() => {
+      setClothingItems(clothingItems.filter((item) => item._id !== card._id));
+    });
   };
 
   const onAddItem = (newItem) => {
-    const itemWithID = { ...newItem, _id: Date.now() };
-    setClothingItems([itemWithID, ...clothingItems]);
+    addItem(newItem).then((addedItem) => {
+      setClothingItems([addedItem, ...clothingItems]);
+    });
   };
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTempUnit === "C" ? "F" : "C");
   };
+
+  useEffect(() => {
+    getItems().then((fetchedItems) => {
+      if (fetchedItems) {
+        setClothingItems(fetchedItems);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (!activeModal) return;
@@ -86,7 +95,11 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+            <Main
+              weatherTemp={temp}
+              onSelectCard={handleSelectedCard}
+              clothingItems={clothingItems}
+            />
           </Route>
           <Route path="/profile">
             <Profile
