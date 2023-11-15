@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 const ModalWithForm = ({
   children,
-  buttonText = "Add garment",
+  buttonText,
   title,
   onClose,
   name,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../hooks/useForm";
 
-const AddItemModal = ({ onClose, onAddItem }) => {
+const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
   const { values, handleChange } = useForm({
     name: "",
     link: "",
@@ -23,6 +23,7 @@ const AddItemModal = ({ onClose, onAddItem }) => {
       title="New Garment"
       onClose={onClose}
       onSubmit={handleSubmit}
+      buttonText={isLoading ? "Saving..." : "Add garment"}
     >
       <fieldset className="modal__form-fieldset">
         <label>

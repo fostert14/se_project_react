@@ -8,11 +8,7 @@ import { useState, useMemo, useEffect } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-} from "react-router-dom/cjs/react-router-dom.min.js";
+import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min.js";
 import AddItemModal from "../AddItemModal/AddItemModal.js";
 import { getItems, addItem, deleteItem } from "../../utils/api.js";
 
@@ -22,6 +18,7 @@ function App() {
   const [temp, setTemp] = useState(0);
   const [currentTempUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -45,6 +42,8 @@ function App() {
   };
 
   const onAddItem = (newItem) => {
+    setIsLoading(true);
+
     addItem(newItem)
       .then(() => {
         setClothingItems([newItem, ...clothingItems]);
@@ -52,6 +51,9 @@ function App() {
       })
       .catch((error) => {
         console.error("Error adding item", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -100,45 +102,44 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <CurrentTemperatureUnitContext.Provider
-        value={{ currentTempUnit, handleToggleSwitchChange }}
-      >
-        <Header onCreateModal={handleCreateModal} />
+    <CurrentTemperatureUnitContext.Provider
+      value={{ currentTempUnit, handleToggleSwitchChange }}
+    >
+      <Header onCreateModal={handleCreateModal} />
 
-        <Switch>
-          <Route exact path="/">
-            <Main
-              weatherTemp={temp}
-              onSelectCard={handleSelectedCard}
-              clothingItems={clothingItems}
-            />
-          </Route>
-          <Route path="/profile">
-            <Profile
-              onCreateModal={handleCreateModal}
-              onSelectCard={handleSelectedCard}
-              clothingItems={clothingItems}
-            />
-          </Route>
-        </Switch>
-        <Footer />
-        {activeModal === "create" && (
-          <AddItemModal
-            selectedCard={selectedCard}
-            onClose={handleCloseModal}
-            onAddItem={onAddItem}
+      <Switch>
+        <Route exact path="/">
+          <Main
+            weatherTemp={temp}
+            onSelectCard={handleSelectedCard}
+            clothingItems={clothingItems}
           />
-        )}
-        {activeModal === "preview" && (
-          <ItemModal
-            selectedCard={selectedCard}
-            onClose={handleCloseModal}
-            onDelete={deleteCard}
+        </Route>
+        <Route path="/profile">
+          <Profile
+            onCreateModal={handleCreateModal}
+            onSelectCard={handleSelectedCard}
+            clothingItems={clothingItems}
           />
-        )}
-      </CurrentTemperatureUnitContext.Provider>
-    </div>
+        </Route>
+      </Switch>
+      <Footer />
+      {activeModal === "create" && (
+        <AddItemModal
+          selectedCard={selectedCard}
+          onClose={handleCloseModal}
+          onAddItem={onAddItem}
+          isLoading={isLoading}
+        />
+      )}
+      {activeModal === "preview" && (
+        <ItemModal
+          selectedCard={selectedCard}
+          onClose={handleCloseModal}
+          onDelete={deleteCard}
+        />
+      )}
+    </CurrentTemperatureUnitContext.Provider>
   );
 }
 
