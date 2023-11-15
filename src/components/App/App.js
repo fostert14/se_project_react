@@ -19,6 +19,7 @@ function App() {
   const [currentTempUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [cityName, setCityName] = useState("");
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -93,8 +94,9 @@ function App() {
   useEffect(() => {
     getForecastWeather()
       .then((data) => {
-        const temperature = parseWeatherData(data);
-        setTemp(temperature);
+        const weather = parseWeatherData(data);
+        setTemp(weather.temperature);
+        setCityName(weather.city);
       })
       .catch((error) => {
         console.error("Error fetching weather data", error);
@@ -105,7 +107,7 @@ function App() {
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTempUnit, handleToggleSwitchChange }}
     >
-      <Header onCreateModal={handleCreateModal} />
+      <Header onCreateModal={handleCreateModal} cityName={cityName} />
 
       <Switch>
         <Route exact path="/">

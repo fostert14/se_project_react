@@ -11,7 +11,7 @@ const getCurrentDate = () => {
   return `${month} ${day}`;
 };
 
-const Header = ({ onCreateModal }) => {
+const Header = ({ onCreateModal, cityName }) => {
   return (
     <header className="header">
       <div className="header__logo">
@@ -20,7 +20,9 @@ const Header = ({ onCreateModal }) => {
             <img src={logo} alt="wtwr logo" />
           </Link>
         </div>
-        <div>{getCurrentDate()}, Kansas City</div>
+        <div>
+          {getCurrentDate()}, {cityName}
+        </div>
       </div>
       <div className="header__avatar-logo">
         <ToggleSwitch />
