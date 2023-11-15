@@ -1,10 +1,15 @@
 import "./ItemModal.css";
 
-const ItemModal = ({ selectedCard, onClose }) => {
+const ItemModal = ({ selectedCard, onClose, onDelete }) => {
   const handleBackgroundClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
+  };
+
+  const handleDelete = () => {
+    onDelete(selectedCard);
+    onClose();
   };
 
   return (
@@ -20,9 +25,17 @@ const ItemModal = ({ selectedCard, onClose }) => {
           src={selectedCard.link}
           alt={selectedCard.name}
         />
-        <div className="modal__caption">
-          <p>{selectedCard.name}</p>
-          <div> Weather type: {selectedCard.weather}</div>
+        <div className="modal__footer">
+          <div className="modal__footer-caption">
+            <p className="modal__footer-caption-item">{selectedCard.name}</p>
+            <div> Weather type: {selectedCard.weather}</div>
+          </div>
+          <button
+            className="modal__footer-delete-button"
+            onClick={handleDelete}
+          >
+            Delete Item
+          </button>
         </div>
       </div>
     </div>

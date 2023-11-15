@@ -34,6 +34,12 @@ function App() {
     setSelectedCard(card);
   };
 
+  const deleteCard = (card) => {
+    setClothingItems((prevItems) =>
+      prevItems.filter((item) => item._id !== card._id)
+    );
+  };
+
   const onAddItem = (newItem) => {
     const itemWithID = { ...newItem, _id: Date.now() };
     setClothingItems([itemWithID, ...clothingItems]);
@@ -99,7 +105,11 @@ function App() {
           />
         )}
         {activeModal === "preview" && (
-          <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
+          <ItemModal
+            selectedCard={selectedCard}
+            onClose={handleCloseModal}
+            onDelete={deleteCard}
+          />
         )}
       </CurrentTemperatureUnitContext.Provider>
     </div>
