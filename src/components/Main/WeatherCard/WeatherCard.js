@@ -12,7 +12,7 @@ const WeatherCard = ({ day, type, weatherTemp = "" }) => {
     <section className="weather" id="weather">
       <div className="weather_info">{weatherTemp}</div>
       <div>
-        <img src={imgSrcUrl} alt="weather tile" className="weather_image" />
+        <img src={imgSrcUrl} alt={type} className="weather_image" />
       </div>
     </section>
   );

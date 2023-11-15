@@ -9,13 +9,12 @@ const Main = ({ weatherTemp, onSelectCard, clothingItems }) => {
   const { currentTempUnit } = useContext(CurrentTemperatureUnitContext);
   console.log(currentTempUnit);
   const tempValue = weatherTemp?.[currentTempUnit];
-  const numericTemp = tempValue ? parseInt(tempValue, 10) : null;
 
   const weatherType = useMemo(() => {
-    if (typeof numericTemp === "number") {
-      const tempInFahrenheit =
-        currentTempUnit === "C" ? (numericTemp * 9) / 5 + 32 : numericTemp;
-
+    const tempInFahrenheit = weatherTemp?.F
+      ? parseInt(weatherTemp.F, 10)
+      : null;
+    if (tempInFahrenheit) {
       if (tempInFahrenheit >= 86) {
         return "hot";
       } else if (tempInFahrenheit >= 66 && tempInFahrenheit <= 85) {
@@ -25,7 +24,7 @@ const Main = ({ weatherTemp, onSelectCard, clothingItems }) => {
       }
     }
     return undefined;
-  }, [numericTemp, currentTempUnit]);
+  }, [weatherTemp, currentTempUnit]);
 
   const filteredCards = clothingItems.filter((item) => {
     return item.weather.toLowerCase() === weatherType;
