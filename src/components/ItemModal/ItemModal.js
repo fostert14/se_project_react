@@ -9,7 +9,6 @@ const ItemModal = ({ selectedCard, onClose, onDelete }) => {
 
   const handleDelete = () => {
     onDelete(selectedCard);
-    onClose();
   };
 
   return (

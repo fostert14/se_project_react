@@ -39,6 +39,9 @@ function App() {
       })
       .catch((error) => {
         console.error("Error deleting item", error);
+      })
+      .finally(() => {
+        handleCloseModal();
       });
   };
 
