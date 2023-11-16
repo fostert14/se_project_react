@@ -47,8 +47,8 @@ function App() {
     setIsLoading(true);
 
     addItem(newItem)
-      .then(() => {
-        setClothingItems([newItem, ...clothingItems]);
+      .then((addedItem) => {
+        setClothingItems([addedItem, ...clothingItems]);
         handleCloseModal();
       })
       .catch((error) => {
