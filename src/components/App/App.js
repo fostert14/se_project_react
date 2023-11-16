@@ -36,12 +36,10 @@ function App() {
     deleteItem(card._id)
       .then(() => {
         setClothingItems(clothingItems.filter((item) => item._id !== card._id));
+        handleCloseModal();
       })
       .catch((error) => {
         console.error("Error deleting item", error);
-      })
-      .finally(() => {
-        handleCloseModal();
       });
   };
 
