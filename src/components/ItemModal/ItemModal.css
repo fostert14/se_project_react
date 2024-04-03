@@ -51,7 +51,7 @@
   margin: 0;
 }
 
-.modal__footer-delete-button {
+.modal__footer-delete-button_visible {
   border: none;
   position: relative;
   background: no-repeat;
@@ -62,6 +62,10 @@
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.3s ease;
+}
+
+.modal__footer-delete-button_hidden {
+  visibility: hidden;
 }
 
 .modal__footer-delete-button:hover {
