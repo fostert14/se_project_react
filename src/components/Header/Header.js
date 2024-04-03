@@ -11,7 +11,7 @@ const getCurrentDate = () => {
   return `${month} ${day}`;
 };
 
-const Header = ({ onCreateModal, cityName }) => {
+const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp }) => {
   return (
     <header className="header">
       <div className="header__logo">
@@ -26,23 +26,28 @@ const Header = ({ onCreateModal, cityName }) => {
       </div>
       <div className="header__avatar-logo">
         <ToggleSwitch />
-        <div>
-          <button
-            className="header__avatar-logo-button"
-            type="text"
-            onClick={onCreateModal}
-          >
-            + Add Clothes
-          </button>
-        </div>
-        <Link to="/profile">Trevor Foster</Link>
-        <div>
-          <img
-            className="header__avatar-img"
-            src={avatar}
-            alt="avatar profile"
-          />
-        </div>
+        {isLoggedIn ? (
+          <>
+            <button
+              className="header__avatar-logo-button"
+              type="text"
+              onClick={onCreateModal}
+            >
+              + Add Clothes
+            </button>
+            <Link to="/profile">Trevor Foster</Link>
+            <img
+              className="header__avatar-img"
+              src={avatar}
+              alt="avatar profile"
+            />
+          </>
+        ) : (
+          <>
+            <button onClick={onSignUp}>Sign Up</button>
+            {/*<button onClick={}> Log In</button>*/}
+          </>
+        )}
       </div>
     </header>
   );

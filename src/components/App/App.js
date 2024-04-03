@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile.js";
 import Footer from "../Footer/Footer.js";
+import RegisterModal from "../RegisterModal/RegisterModal.js";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState, useMemo, useEffect } from "react";
 import ItemModal from "../ItemModal/ItemModal";
@@ -10,9 +11,10 @@ import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min.js";
 import AddItemModal from "../AddItemModal/AddItemModal.js";
-import { getItems, addItem, deleteItem } from "../../utils/api.js";
+import { getItems, addItem, deleteItem, register } from "../../utils/api.js";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
@@ -20,6 +22,19 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cityName, setCityName] = useState("");
+
+  const handleUserRegister = ({ name, email, password, avatar }) => {
+    register({ name, email, password, avatar })
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        setIsLoggedIn(true);
+        setActiveModal("");
+      })
+      .catch((error) => {
+        console.error("Registration failed:", error);
+        //Improvement: Handle registration failure (display error message to user)
+      });
+  };
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -30,6 +45,9 @@ function App() {
   const handleSelectedCard = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
+  };
+  const handleSignUpModal = () => {
+    setActiveModal("sign up");
   };
 
   const deleteCard = (card) => {
@@ -79,7 +97,6 @@ function App() {
     if (!activeModal) return;
 
     const handleEscClose = (e) => {
-      // define the function inside useEffect not to lose the reference on rerendering
       if (e.key === "Escape") {
         handleCloseModal();
       }
@@ -104,11 +121,18 @@ function App() {
       });
   }, []);
 
+  //Registration and sign in logic
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTempUnit, handleToggleSwitchChange }}
     >
-      <Header onCreateModal={handleCreateModal} cityName={cityName} />
+      <Header
+        onCreateModal={handleCreateModal}
+        cityName={cityName}
+        isLoggedIn={isLoggedIn}
+        onSignUp={handleSignUpModal}
+      />
 
       <Switch>
         <Route exact path="/">
@@ -140,6 +164,12 @@ function App() {
           selectedCard={selectedCard}
           onClose={handleCloseModal}
           onDelete={deleteCard}
+        />
+      )}
+      {activeModal === "sign up" && (
+        <RegisterModal
+          onRegister={handleUserRegister}
+          onClose={handleCloseModal}
         />
       )}
     </CurrentTemperatureUnitContext.Provider>
