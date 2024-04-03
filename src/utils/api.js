@@ -17,6 +17,15 @@ export function getItems() {
   return request(`${baseUrl}/items`);
 }
 
+export const getCurrentUser = (token) => {
+  return fetch(`${baseUrl}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }).then(checkResponse);
+};
+
 export const register = ({ name, avatar, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",

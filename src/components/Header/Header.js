@@ -1,4 +1,6 @@
 import "./Header.css";
+import React, { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import logo from "../../images/logo.svg";
 import avatar from "../../images/avatar.svg";
@@ -12,6 +14,11 @@ const getCurrentDate = () => {
 };
 
 const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp, onLogin }) => {
+  const currentUser = useContext(CurrentUserContext);
+
+  const userInitial =
+    currentUser && currentUser.name ? currentUser.name[0].toUpperCase() : "";
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -35,12 +42,16 @@ const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp, onLogin }) => {
             >
               + Add Clothes
             </button>
-            <Link to="/profile">Trevor Foster</Link>
-            <img
-              className="header__avatar-img"
-              src={avatar}
-              alt="avatar profile"
-            />
+            <Link to="/profile">{currentUser.name}</Link>
+            {currentUser.avatar ? (
+              <img
+                className="header__avatar-img"
+                src={currentUser.avatar}
+                alt="avatar profile"
+              />
+            ) : (
+              <div className="header__avatar-intial">{userInitial}</div>
+            )}
           </>
         ) : (
           <>

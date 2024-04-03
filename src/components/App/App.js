@@ -10,6 +10,7 @@ import { useState, useMemo, useEffect } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min.js";
 import AddItemModal from "../AddItemModal/AddItemModal.js";
 import {
@@ -18,10 +19,12 @@ import {
   deleteItem,
   register,
   login,
+  getCurrentUser,
 } from "../../utils/api.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState();
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
@@ -37,6 +40,10 @@ function App() {
         setIsLoggedIn(true);
         setActiveModal("");
       })
+      .then((userData) => {
+        setCurrentUser(userData);
+        setActiveModal("");
+      })
       .catch((error) => {
         console.error("Registration failed:", error);
         //Improvement: Handle registration failure (display error message to user)
@@ -48,6 +55,11 @@ function App() {
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
+        return getCurrentUser(data.token);
+      })
+      .then((userData) => {
+        console.log("User Data", userData);
+        setCurrentUser(userData);
         setActiveModal("");
       })
       .catch((error) => {
@@ -133,6 +145,15 @@ function App() {
   }, [activeModal]);
 
   useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      return;
+    } else {
+      getCurrentUser(token).then(setCurrentUser).catch(console.error);
+    }
+  }, []);
+
+  useEffect(() => {
     getForecastWeather()
       .then((data) => {
         const weather = parseWeatherData(data);
@@ -145,59 +166,61 @@ function App() {
   }, []);
 
   return (
-    <CurrentTemperatureUnitContext.Provider
-      value={{ currentTempUnit, handleToggleSwitchChange }}
-    >
-      <Header
-        onCreateModal={handleCreateModal}
-        cityName={cityName}
-        isLoggedIn={isLoggedIn}
-        onSignUp={handleSignUpModal}
-        onLogin={handleLoginModal}
-      />
+    <CurrentUserContext.Provider value={currentUser}>
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTempUnit, handleToggleSwitchChange }}
+      >
+        <Header
+          onCreateModal={handleCreateModal}
+          cityName={cityName}
+          isLoggedIn={isLoggedIn}
+          onSignUp={handleSignUpModal}
+          onLogin={handleLoginModal}
+        />
 
-      <Switch>
-        <Route exact path="/">
-          <Main
-            weatherTemp={temp}
-            onSelectCard={handleSelectedCard}
-            clothingItems={clothingItems}
+        <Switch>
+          <Route exact path="/">
+            <Main
+              weatherTemp={temp}
+              onSelectCard={handleSelectedCard}
+              clothingItems={clothingItems}
+            />
+          </Route>
+          <Route path="/profile">
+            <Profile
+              onCreateModal={handleCreateModal}
+              onSelectCard={handleSelectedCard}
+              clothingItems={clothingItems}
+            />
+          </Route>
+        </Switch>
+        <Footer />
+        {activeModal === "create" && (
+          <AddItemModal
+            selectedCard={selectedCard}
+            onClose={handleCloseModal}
+            onAddItem={onAddItem}
+            isLoading={isLoading}
           />
-        </Route>
-        <Route path="/profile">
-          <Profile
-            onCreateModal={handleCreateModal}
-            onSelectCard={handleSelectedCard}
-            clothingItems={clothingItems}
+        )}
+        {activeModal === "preview" && (
+          <ItemModal
+            selectedCard={selectedCard}
+            onClose={handleCloseModal}
+            onDelete={deleteCard}
           />
-        </Route>
-      </Switch>
-      <Footer />
-      {activeModal === "create" && (
-        <AddItemModal
-          selectedCard={selectedCard}
-          onClose={handleCloseModal}
-          onAddItem={onAddItem}
-          isLoading={isLoading}
-        />
-      )}
-      {activeModal === "preview" && (
-        <ItemModal
-          selectedCard={selectedCard}
-          onClose={handleCloseModal}
-          onDelete={deleteCard}
-        />
-      )}
-      {activeModal === "sign up" && (
-        <RegisterModal
-          onRegister={handleUserRegister}
-          onClose={handleCloseModal}
-        />
-      )}
-      {activeModal === "login" && (
-        <LoginModal onLogin={handleUserLogin} onClose={handleCloseModal} />
-      )}
-    </CurrentTemperatureUnitContext.Provider>
+        )}
+        {activeModal === "sign up" && (
+          <RegisterModal
+            onRegister={handleUserRegister}
+            onClose={handleCloseModal}
+          />
+        )}
+        {activeModal === "login" && (
+          <LoginModal onLogin={handleUserLogin} onClose={handleCloseModal} />
+        )}
+      </CurrentTemperatureUnitContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
