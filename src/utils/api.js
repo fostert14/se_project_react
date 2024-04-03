@@ -7,6 +7,16 @@ function checkResponse(res) {
   return Promise.reject(`Error ${res.status}`);
 }
 
+const getToken = () => localStorage.getItem("jwt");
+
+export function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
+export function getItems() {
+  return request(`${baseUrl}/items`);
+}
+
 export const register = ({ name, avatar, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
@@ -27,19 +37,13 @@ export const login = ({ email, password }) => {
   }).then(checkResponse);
 };
 
-export function request(url, options) {
-  return fetch(url, options).then(checkResponse);
-}
-
-export function getItems() {
-  return request(`${baseUrl}/items`);
-}
-
 export function addItem(item) {
+  const token = getToken();
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(item),
   };
@@ -47,8 +51,12 @@ export function addItem(item) {
 }
 
 export function deleteItem(id) {
+  const token = getToken();
   const options = {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
   return request(`${baseUrl}/items/${id}`, options);
 }

@@ -34,7 +34,13 @@ const RegisterModal = ({ onClose, onRegister }) => {
         placeholder="Email"
         required
       />
-      <input type="text" value={password} placeholder="Password" required />
+      <input
+        type="text"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        required
+      />
       <input
         type="text"
         value={confirmPassword}

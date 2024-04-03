@@ -7,7 +7,6 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 
 const Main = ({ weatherTemp, onSelectCard, clothingItems }) => {
   const { currentTempUnit } = useContext(CurrentTemperatureUnitContext);
-  console.log(currentTempUnit);
   const tempValue = weatherTemp?.[currentTempUnit];
 
   const weatherType = useMemo(() => {
