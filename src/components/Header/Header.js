@@ -11,7 +11,7 @@ const getCurrentDate = () => {
   return `${month} ${day}`;
 };
 
-const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp }) => {
+const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp, onLogin }) => {
   return (
     <header className="header">
       <div className="header__logo">
@@ -45,7 +45,7 @@ const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp }) => {
         ) : (
           <>
             <button onClick={onSignUp}>Sign Up</button>
-            {/*<button onClick={}> Log In</button>*/}
+            <button onClick={onLogin}> Log In</button>
           </>
         )}
       </div>

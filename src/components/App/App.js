@@ -4,6 +4,7 @@ import Main from "../Main/Main";
 import Profile from "../Profile/Profile.js";
 import Footer from "../Footer/Footer.js";
 import RegisterModal from "../RegisterModal/RegisterModal.js";
+import LoginModal from "../LoginModal/LoginModal.js";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState, useMemo, useEffect } from "react";
 import ItemModal from "../ItemModal/ItemModal";
@@ -11,7 +12,13 @@ import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min.js";
 import AddItemModal from "../AddItemModal/AddItemModal.js";
-import { getItems, addItem, deleteItem, register } from "../../utils/api.js";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  register,
+  login,
+} from "../../utils/api.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,6 +43,19 @@ function App() {
       });
   };
 
+  const handleUserLogin = ({ email, password }) => {
+    login({ email, password })
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        setIsLoggedIn(true);
+        setActiveModal("");
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+        //Improvement: Handle registration failure (display error message to user)
+      });
+  };
+
   const handleCreateModal = () => {
     setActiveModal("create");
   };
@@ -48,6 +68,9 @@ function App() {
   };
   const handleSignUpModal = () => {
     setActiveModal("sign up");
+  };
+  const handleLoginModal = () => {
+    setActiveModal("login");
   };
 
   const deleteCard = (card) => {
@@ -121,8 +144,6 @@ function App() {
       });
   }, []);
 
-  //Registration and sign in logic
-
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTempUnit, handleToggleSwitchChange }}
@@ -132,6 +153,7 @@ function App() {
         cityName={cityName}
         isLoggedIn={isLoggedIn}
         onSignUp={handleSignUpModal}
+        onLogin={handleLoginModal}
       />
 
       <Switch>
@@ -171,6 +193,9 @@ function App() {
           onRegister={handleUserRegister}
           onClose={handleCloseModal}
         />
+      )}
+      {activeModal === "login" && (
+        <LoginModal onLogin={handleUserLogin} onClose={handleCloseModal} />
       )}
     </CurrentTemperatureUnitContext.Provider>
   );
