@@ -146,10 +146,17 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    if (!token) {
-      return;
+    if (token) {
+      setIsLoggedIn(true);
+      getCurrentUser(token)
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch user data", error);
+        });
     } else {
-      getCurrentUser(token).then(setCurrentUser).catch(console.error);
+      return;
     }
   }, []);
 

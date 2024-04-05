@@ -16,8 +16,10 @@ const getCurrentDate = () => {
 const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp, onLogin }) => {
   const currentUser = useContext(CurrentUserContext);
 
+  const userName = currentUser ? currentUser.name : "";
   const userInitial =
     currentUser && currentUser.name ? currentUser.name[0].toUpperCase() : "";
+  const userAvatar = currentUser ? currentUser.avatar : null;
 
   return (
     <header className="header">
@@ -42,11 +44,11 @@ const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp, onLogin }) => {
             >
               + Add Clothes
             </button>
-            <Link to="/profile">{currentUser.name}</Link>
-            {currentUser.avatar ? (
+            <Link to="/profile">{userName}</Link>
+            {userAvatar ? (
               <img
                 className="header__avatar-img"
-                src={currentUser.avatar}
+                src={userAvatar}
                 alt="avatar profile"
               />
             ) : (

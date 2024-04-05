@@ -5,23 +5,26 @@ import CurrentUserContext from "../../../contexts/CurrentUserContext";
 
 const SideBar = () => {
   const currentUser = useContext(CurrentUserContext);
+
+  const userName = currentUser ? currentUser.name : "";
   const userInitial =
     currentUser && currentUser.name ? currentUser.name[0].toUpperCase() : "";
+  const userAvatar = currentUser ? currentUser.avatar : null;
 
   return (
     <section className="sideBar">
       <div>
-        {currentUser.avatar ? (
+        {userAvatar ? (
           <img
             className="sidebar__avatar-img"
-            src={avatar}
+            src={userAvatar}
             alt="avatar profile"
           />
         ) : (
           <div className="sidebar__avatar-intial">{userInitial}</div>
         )}
       </div>
-      <h2 className="sideBar__name">{currentUser.name}</h2>
+      <h2 className="sideBar__name">{userName}</h2>
     </section>
   );
 };
