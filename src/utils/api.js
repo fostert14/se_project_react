@@ -46,6 +46,21 @@ export const login = ({ email, password }) => {
   }).then(checkResponse);
 };
 
+export const editProfile = ({ name, avatar }) => {
+  const token = getToken();
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name,
+      avatar,
+    }),
+  }).then(checkResponse);
+};
+
 export function addItem(item) {
   const token = getToken();
   const options = {

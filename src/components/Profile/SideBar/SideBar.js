@@ -1,9 +1,8 @@
 import { useContext } from "react";
-import avatar from "../../../images/avatar.svg";
 import "./SideBar.css";
 import CurrentUserContext from "../../../contexts/CurrentUserContext";
 
-const SideBar = () => {
+const SideBar = ({ onEdit }) => {
   const currentUser = useContext(CurrentUserContext);
 
   const userName = currentUser ? currentUser.name : "";
@@ -23,6 +22,7 @@ const SideBar = () => {
         ) : (
           <div className="sidebar__avatar-intial">{userInitial}</div>
         )}
+        <button onClick={onEdit}>Change Profile Data</button>
       </div>
       <h2 className="sideBar__name">{userName}</h2>
     </section>

@@ -20,11 +20,13 @@ import {
   register,
   login,
   getCurrentUser,
+  editProfile,
 } from "../../utils/api.js";
+import EditProfileModal from "../Profile/EditProfileModal/EditProfileModal.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(null);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
@@ -40,6 +42,18 @@ function App() {
         setIsLoggedIn(true);
         setActiveModal("");
       })
+      .then((userData) => {
+        setCurrentUser(userData);
+        setActiveModal("");
+      })
+      .catch((error) => {
+        console.error("Registration failed:", error);
+        //Improvement: Handle registration failure (display error message to user)
+      });
+  };
+
+  const handleProfileEdit = ({ name, avatar }) => {
+    editProfile({ name, avatar })
       .then((userData) => {
         setCurrentUser(userData);
         setActiveModal("");
@@ -83,6 +97,9 @@ function App() {
   };
   const handleLoginModal = () => {
     setActiveModal("login");
+  };
+  const handleEditModal = () => {
+    setActiveModal("edit profile");
   };
 
   const deleteCard = (card) => {
@@ -198,6 +215,7 @@ function App() {
               onCreateModal={handleCreateModal}
               onSelectCard={handleSelectedCard}
               clothingItems={clothingItems}
+              onEdit={handleEditModal}
             />
           </Route>
         </Switch>
@@ -225,6 +243,12 @@ function App() {
         )}
         {activeModal === "login" && (
           <LoginModal onLogin={handleUserLogin} onClose={handleCloseModal} />
+        )}
+        {activeModal === "edit profile" && (
+          <EditProfileModal
+            onEdit={handleProfileEdit}
+            onClose={handleCloseModal}
+          />
         )}
       </CurrentTemperatureUnitContext.Provider>
     </CurrentUserContext.Provider>
