@@ -4,13 +4,18 @@ import { useContext } from "react";
 
 const ItemCard = ({ item, onSelectCard, onCardLike }) => {
   const currentUser = useContext(CurrentUserContext);
-  const isLikedByCurrentUser = item.likes.includes(currentUser._id);
+  const isLikedByCurrentUser = currentUser
+    ? item.likes.includes(currentUser._id)
+    : "";
   const handleLike = () => {
     onCardLike({ id: item._id, isLiked: !isLikedByCurrentUser });
   };
-  const likeButtonClass = `card__like-button ${
-    isLikedByCurrentUser ? "card__like-button_liked" : "card__like-button"
-  }`;
+
+  const likeButtonClass = currentUser?._id
+    ? isLikedByCurrentUser
+      ? "card__like-button_liked"
+      : "card__like-button"
+    : "card__like-button_hidden";
 
   return (
     <div className="card">
