@@ -19,20 +19,24 @@ const LoginModal = ({ onClose, onLogin }) => {
       onSubmit={handleSubmit}
       name="login"
     >
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="text"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
+      <fieldset className="modal__form-fieldset">
+        <input
+          className="modal__form-input"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          className="modal__form-input"
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+      </fieldset>
     </ModalWithForm>
   );
 };

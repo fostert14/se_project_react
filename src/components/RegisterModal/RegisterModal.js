@@ -27,40 +27,47 @@ const RegisterModal = ({ onClose, onRegister }) => {
       onSubmit={handleSubmit}
       name="register"
     >
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="text"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <input
-        type="text"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        placeholder="Confirm Password"
-        required
-      />
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-        required
-      />
-      <input
-        type="url"
-        value={avatar}
-        onChange={(e) => setAvatar(e.target.value)}
-        placeholder="Avatar URL"
-      />
+      <fieldset className="modal__form-fieldset">
+        <input
+          className="modal__form-input"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          className="modal__form-input"
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+        <input
+          className="modal__form-input"
+          type="text"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Confirm Password"
+          required
+        />
+        <input
+          className="modal__form-input"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+          required
+        />
+        <input
+          className="modal__form-input"
+          type="url"
+          value={avatar}
+          onChange={(e) => setAvatar(e.target.value)}
+          placeholder="Avatar URL"
+        />
+      </fieldset>
     </ModalWithForm>
   );
 };

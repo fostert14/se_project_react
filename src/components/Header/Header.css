@@ -27,9 +27,26 @@
   font-weight: 525;
 }
 
+.header__login-signup-button {
+  min-height: 60px;
+  padding: 0 20px;
+  font-size: 20px;
+  line-height: 24px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.1s linear;
+}
+
+.header__login-signup-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 .header__avatar-img {
-  max-width: 40px;
-  max-height: 40px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 

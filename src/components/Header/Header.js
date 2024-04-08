@@ -56,8 +56,12 @@ const Header = ({ onCreateModal, cityName, isLoggedIn, onSignUp, onLogin }) => {
           </>
         ) : (
           <>
-            <button onClick={onSignUp}>Sign Up</button>
-            <button onClick={onLogin}> Log In</button>
+            <button className="header__login-signup-button" onClick={onSignUp}>
+              Sign Up
+            </button>
+            <button className="header__login-signup-button" onClick={onLogin}>
+              Log In
+            </button>
           </>
         )}
       </div>

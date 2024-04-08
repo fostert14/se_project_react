@@ -6,6 +6,13 @@
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
+  flex-direction: column;
+}
+
+.sideBar__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .sideBar__name {
@@ -35,4 +42,27 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.sidebar__buttons {
+  margin: 24px 0 0 0;
+
+  flex-direction: column;
+  display: flex;
+  gap: 8px;
+}
+
+.sidebar__button {
+  display: flex;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  transition: opacity 0.1s linear;
+}
+
+.sidebar__button:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }

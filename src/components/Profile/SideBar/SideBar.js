@@ -14,18 +14,29 @@ const SideBar = ({ onEdit, onLogout }) => {
     <section className="sideBar">
       <div>
         {userAvatar ? (
-          <img
-            className="sidebar__avatar-img"
-            src={userAvatar}
-            alt="avatar profile"
-          />
+          <div className="sideBar__top">
+            <img
+              className="sidebar__avatar-img"
+              src={userAvatar}
+              alt="avatar profile"
+            />
+            <h2 className="sideBar__name">{userName}</h2>
+          </div>
         ) : (
-          <div className="sidebar__avatar-intial">{userInitial}</div>
+          <div className="sideBar__top">
+            <div className="sidebar__avatar-intial">{userInitial}</div>
+            <h2 className="sideBar__name">{userName}</h2>
+          </div>
         )}
-        <button onClick={onEdit}>Change Profile Data</button>
-        <button onClick={onLogout}>Log Out</button>
+        <div className="sidebar__buttons">
+          <button className="sidebar__button" onClick={onEdit}>
+            Change Profile Data
+          </button>
+          <button className="sidebar__button" onClick={onLogout}>
+            Log Out
+          </button>
+        </div>
       </div>
-      <h2 className="sideBar__name">{userName}</h2>
     </section>
   );
 };
