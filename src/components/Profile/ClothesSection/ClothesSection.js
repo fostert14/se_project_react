@@ -3,7 +3,12 @@ import ItemCard from "../../Main/ItemCard/ItemCard";
 import CurrentUserContext from "../../../contexts/CurrentUserContext";
 import "./ClothesSection.css";
 
-const ClothesSection = ({ onCreateModal, onSelectCard, clothingItems }) => {
+const ClothesSection = ({
+  onCreateModal,
+  onSelectCard,
+  clothingItems,
+  onCardLike,
+}) => {
   const currentUser = useContext(CurrentUserContext);
   const userItems = clothingItems.filter(
     (item) => item.owner === currentUser?._id
@@ -22,9 +27,13 @@ const ClothesSection = ({ onCreateModal, onSelectCard, clothingItems }) => {
         </button>
       </div>
       <div className="clothesSection__cards">
-        {/*Potentially add option */}
         {userItems.map((item) => (
-          <ItemCard key={item._id} item={item} onSelectCard={onSelectCard} />
+          <ItemCard
+            key={item._id}
+            item={item}
+            onSelectCard={onSelectCard}
+            onCardLike={onCardLike}
+          />
         ))}
       </div>
     </div>

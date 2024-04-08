@@ -84,3 +84,24 @@ export function deleteItem(id) {
   };
   return request(`${baseUrl}/items/${id}`, options);
 }
+
+export function addCardLike(id) {
+  const token = getToken();
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
+export function removeCardLike(id) {
+  const token = getToken();
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}

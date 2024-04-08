@@ -43,3 +43,16 @@
   height: 18px;
   transition: opacity 0.1s linear;
 }
+
+/* temporary until I can get a new background image that is colored red */
+.card__like-button_liked {
+  background-color: red;
+  background-image: url("../../../images/like-button.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  width: 21px;
+  height: 18px;
+  opacity: 0.6;
+  transition: background-color 0.1s linear opacity 0.1s linear;
+}

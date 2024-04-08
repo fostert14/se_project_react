@@ -21,6 +21,8 @@ import {
   login,
   getCurrentUser,
   editProfile,
+  addCardLike,
+  removeCardLike,
 } from "../../utils/api.js";
 import EditProfileModal from "../Profile/EditProfileModal/EditProfileModal.js";
 
@@ -82,6 +84,8 @@ function App() {
       });
   };
 
+  //modal functionsj
+
   const handleCreateModal = () => {
     setActiveModal("create");
   };
@@ -113,6 +117,7 @@ function App() {
       });
   };
 
+  //Add new clothing item
   const onAddItem = (newItem) => {
     setIsLoading(true);
 
@@ -129,9 +134,33 @@ function App() {
       });
   };
 
+  //toggle degree switch on Header
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTempUnit === "C" ? "F" : "C");
   };
+
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+    if (isLiked) {
+      addCardLike(id, token)
+        .then((updatedCard) => {
+          setClothingItems((cards) =>
+            cards.map((c) => (c._id === id ? updatedCard : c))
+          );
+        })
+        .catch((err) => console.log(err));
+    } else {
+      removeCardLike(id, token)
+        .then((updatedCard) => {
+          setClothingItems((cards) =>
+            cards.map((c) => (c._id === id ? updatedCard : c))
+          );
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  //useEffects
 
   useEffect(() => {
     getItems()
@@ -208,6 +237,7 @@ function App() {
               weatherTemp={temp}
               onSelectCard={handleSelectedCard}
               clothingItems={clothingItems}
+              onCardLike={handleCardLike}
             />
           </Route>
           <Route path="/profile">
@@ -216,6 +246,7 @@ function App() {
               onSelectCard={handleSelectedCard}
               clothingItems={clothingItems}
               onEdit={handleEditModal}
+              onCardLike={handleCardLike}
             />
           </Route>
         </Switch>
