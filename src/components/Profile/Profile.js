@@ -8,10 +8,11 @@ const Profile = ({
   clothingItems,
   onEdit,
   onCardLike,
+  onLogout,
 }) => {
   return (
     <section className="profile">
-      <SideBar onEdit={onEdit} />
+      <SideBar onEdit={onEdit} onLogout={onLogout} />
       <ClothesSection
         onCreateModal={onCreateModal}
         onSelectCard={onSelectCard}

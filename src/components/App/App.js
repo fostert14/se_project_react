@@ -6,12 +6,17 @@ import Footer from "../Footer/Footer.js";
 import RegisterModal from "../RegisterModal/RegisterModal.js";
 import LoginModal from "../LoginModal/LoginModal.js";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min.js";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom/cjs/react-router-dom.min.js";
 import AddItemModal from "../AddItemModal/AddItemModal.js";
 import {
   getItems,
@@ -25,6 +30,7 @@ import {
   removeCardLike,
 } from "../../utils/api.js";
 import EditProfileModal from "../Profile/EditProfileModal/EditProfileModal.js";
+import ProtectedRoute from "../../utils/ProtectedRoute.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,6 +42,8 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cityName, setCityName] = useState("");
+
+  const history = useHistory();
 
   const handleUserRegister = ({ name, email, password, avatar }) => {
     register({ name, email, password, avatar })
@@ -82,6 +90,14 @@ function App() {
         console.error("Login failed:", error);
         //Improvement: Handle registration failure (display error message to user)
       });
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+
+    history.push("/");
   };
 
   //modal functionsj
@@ -223,6 +239,7 @@ function App() {
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTempUnit, handleToggleSwitchChange }}
       >
+        {!isLoggedIn && <Redirect to="/" />}
         <Header
           onCreateModal={handleCreateModal}
           cityName={cityName}
@@ -240,15 +257,16 @@ function App() {
               onCardLike={handleCardLike}
             />
           </Route>
-          <Route path="/profile">
+          <ProtectedRoute path="/profile">
             <Profile
               onCreateModal={handleCreateModal}
               onSelectCard={handleSelectedCard}
               clothingItems={clothingItems}
               onEdit={handleEditModal}
               onCardLike={handleCardLike}
+              onLogout={handleLogout}
             />
-          </Route>
+          </ProtectedRoute>
         </Switch>
         <Footer />
         {activeModal === "create" && (
