@@ -288,10 +288,15 @@ function App() {
           <RegisterModal
             onRegister={handleUserRegister}
             onClose={handleCloseModal}
+            onSwitchModal={() => setActiveModal("login")}
           />
         )}
         {activeModal === "login" && (
-          <LoginModal onLogin={handleUserLogin} onClose={handleCloseModal} />
+          <LoginModal
+            onLogin={handleUserLogin}
+            onClose={handleCloseModal}
+            onSwitchModal={() => setActiveModal("sign up")}
+          />
         )}
         {activeModal === "edit profile" && (
           <EditProfileModal

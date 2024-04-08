@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const LoginModal = ({ onClose, onLogin }) => {
+const LoginModal = ({ onClose, onLogin, onSwitchModal }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,6 +18,8 @@ const LoginModal = ({ onClose, onLogin }) => {
       onClose={onClose}
       onSubmit={handleSubmit}
       name="login"
+      onSecondaryButtonClick={onSwitchModal}
+      secondaryButtonText={"or Sign  Up"}
     >
       <fieldset className="modal__form-fieldset">
         <input
