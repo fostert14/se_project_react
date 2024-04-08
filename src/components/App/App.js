@@ -42,6 +42,7 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cityName, setCityName] = useState("");
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const history = useHistory();
 
@@ -88,7 +89,7 @@ function App() {
       })
       .catch((error) => {
         console.error("Login failed:", error);
-        //Improvement: Handle registration failure (display error message to user)
+        setLoginFailed(true);
       });
   };
 
@@ -296,6 +297,7 @@ function App() {
             onLogin={handleUserLogin}
             onClose={handleCloseModal}
             onSwitchModal={() => setActiveModal("sign up")}
+            loginFailed={loginFailed}
           />
         )}
         {activeModal === "edit profile" && (

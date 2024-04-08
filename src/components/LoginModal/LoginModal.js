@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const LoginModal = ({ onClose, onLogin, onSwitchModal }) => {
+const LoginModal = ({ onClose, onLogin, onSwitchModal, loginFailed }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,6 +22,7 @@ const LoginModal = ({ onClose, onLogin, onSwitchModal }) => {
       secondaryButtonText={"or Sign  Up"}
     >
       <fieldset className="modal__form-fieldset">
+        <label>Email</label>
         <input
           className="modal__form-input"
           type="email"
@@ -30,12 +31,15 @@ const LoginModal = ({ onClose, onLogin, onSwitchModal }) => {
           placeholder="Email"
           required
         />
+        <label className={loginFailed ? "modal__message" : ""}>
+          {loginFailed ? "Incorrect Password" : "Password"}
+        </label>
         <input
-          className="modal__form-input"
-          type="text"
+          className={`modal__form-input ${loginFailed ? "input-error" : ""}`}
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
+          placeholder="Pasword"
           required
         />
       </fieldset>

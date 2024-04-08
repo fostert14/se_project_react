@@ -30,6 +30,7 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
       onSecondaryButtonClick={onSwitchModal}
     >
       <fieldset className="modal__form-fieldset">
+        <label>Email</label>
         <input
           className="modal__form-input"
           type="email"
@@ -38,6 +39,7 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           placeholder="Email"
           required
         />
+        <label>Password</label>
         <input
           className="modal__form-input"
           type="text"
@@ -46,6 +48,7 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           placeholder="Password"
           required
         />
+        <label>Confrm Password</label>
         <input
           className="modal__form-input"
           type="text"
@@ -54,6 +57,7 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           placeholder="Confirm Password"
           required
         />
+        <label>Name</label>
         <input
           className="modal__form-input"
           type="text"
@@ -62,6 +66,7 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           placeholder="Name"
           required
         />
+        <label>Avatar</label>
         <input
           className="modal__form-input"
           type="url"
