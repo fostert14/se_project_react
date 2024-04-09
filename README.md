@@ -29,6 +29,11 @@ The React Weather App is a dynamic, user-friendly application designed to provid
 
 https://github.com/fostert14/se_project_express.git
 
+## Images showing my repo is public
+
+![An image showing that my back end repo has been set to public](./src//images/Git/repo-is-public.png)
+![An image showing my back end repo being opened in an incognito tab which does not require log in](./src/images/Git/repo-opened-incognito.png)
+
 ## Planned Improvements
 
 - **Image Upload Feature:** Allow users to upload their own clothing item images, enhancing the personalization of suggestions.
