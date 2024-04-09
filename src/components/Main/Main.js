@@ -13,8 +13,8 @@ const Main = ({
   onCardLike,
   weatherCondition,
 }) => {
-  const { currentTempUnit } = useContext(CurrentTemperatureUnitContext);
-  const tempValue = weatherTemp?.[currentTempUnit];
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  const tempValue = weatherTemp?.[currentTemperatureUnit];
 
   const weatherType = useMemo(() => {
     const tempInFahrenheit = weatherTemp?.F
@@ -30,7 +30,7 @@ const Main = ({
       }
     }
     return undefined;
-  }, [weatherTemp, currentTempUnit]);
+  }, [weatherTemp, currentTemperatureUnit]);
 
   const filteredCards = clothingItems.filter((item) => {
     return item?.weather?.toLowerCase() === weatherType;

@@ -38,7 +38,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
-  const [currentTempUnit, setCurrentTemperatureUnit] = useState("F");
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cityName, setCityName] = useState("");
@@ -154,7 +154,7 @@ function App() {
 
   //toggle degree switch on Header
   const handleToggleSwitchChange = () => {
-    setCurrentTemperatureUnit(currentTempUnit === "C" ? "F" : "C");
+    setCurrentTemperatureUnit(currentTemperatureUnit === "C" ? "F" : "C");
   };
 
   const handleCardLike = ({ id, isLiked }) => {
@@ -241,7 +241,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <CurrentTemperatureUnitContext.Provider
-        value={{ currentTempUnit, handleToggleSwitchChange }}
+        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         {!isLoggedIn && <Redirect to="/" />}
         <Header

@@ -5,7 +5,7 @@ import defaultImg from "../../../images/day/sunny-day.svg";
 import { CurrentTemperatureUnitContext } from "../../../contexts/CurrentTemperatureUnitContext";
 
 const WeatherCard = ({ day, type, weatherTemp = "" }) => {
-  const { currentTempUnit, handleToggleSwitchChange } = useContext(
+  const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
     CurrentTemperatureUnitContext
   );
 
