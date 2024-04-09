@@ -5,7 +5,6 @@ import Profile from "../Profile/Profile.js";
 import Footer from "../Footer/Footer.js";
 import RegisterModal from "../RegisterModal/RegisterModal.js";
 import LoginModal from "../LoginModal/LoginModal.js";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState, useEffect } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
@@ -141,7 +140,7 @@ function App() {
 
     addItem(newItem)
       .then((addedItem) => {
-        setClothingItems([addedItem, ...clothingItems]);
+        setClothingItems([addedItem.data, ...clothingItems]);
         handleCloseModal();
       })
       .catch((error) => {
