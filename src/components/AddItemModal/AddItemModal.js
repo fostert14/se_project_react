@@ -9,6 +9,8 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
     weatherType: "",
   });
 
+  const isFormValid = values.name && values.link && values.weatherType;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem({
@@ -24,6 +26,7 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText={isLoading ? "Saving..." : "Add garment"}
+      isFormValid={isFormValid}
     >
       <fieldset className="modal__form-fieldset">
         <label>
@@ -37,6 +40,7 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
             placeholder="Name"
             value={values.name}
             onChange={handleChange}
+            required
           />
         </label>
         <label>
@@ -50,12 +54,13 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
             placeholder="Image URL"
             value={values.link}
             onChange={handleChange}
+            required
           />
         </label>
       </fieldset>
       <p className="modal__subheading">Select the weather type</p>
       <div>
-        <div className="modal__radio-button">
+        <div className="modal__radio-button" required>
           <input
             name="weatherType"
             type="radio"

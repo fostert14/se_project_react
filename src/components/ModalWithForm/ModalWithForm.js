@@ -1,5 +1,4 @@
 import "./ModalWithForm.css";
-import { useEffect } from "react";
 
 const ModalWithForm = ({
   children,
@@ -10,6 +9,7 @@ const ModalWithForm = ({
   onSubmit,
   secondaryButtonText,
   onSecondaryButtonClick,
+  isFormValid = true,
 }) => {
   const handleBackgroundClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -29,7 +29,15 @@ const ModalWithForm = ({
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
           <div className="modal__button-container">
-            <button className="modal__submit-button" type="submit">
+            <button
+              className={
+                !isFormValid
+                  ? "modal__submit-button_disabled"
+                  : "modal__submit-button"
+              }
+              type="submit"
+              disabled={!isFormValid}
+            >
               {buttonText}
             </button>
             {secondaryButtonText && (
