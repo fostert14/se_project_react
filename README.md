@@ -34,4 +34,3 @@ https://github.com/fostert14/se_project_express.git
 - **Image Upload Feature:** Allow users to upload their own clothing item images, enhancing the personalization of suggestions.
 - **Expand Weather Data:** Integrate more comprehensive weather data to provide suggestions for a wider range of weather conditions.
 - **Add Like Counter:** Integrate a like counter based on the array of users that have liked an item card.
-- **Add dynamic weather cards based on temperature:** Improve Main weather card to adjust based on the current weather at the users location
