@@ -32,6 +32,9 @@ https://github.com/fostert14/se_project_express.git
 ## Images showing my repo is public
 
 ![An image showing that my back end repo has been set to public](./src//images/Git/repo-is-public.png)
+
+# This photo is showing the back end repo being opened in an incognito tab, which did not require log in.
+
 ![An image showing my back end repo being opened in an incognito tab which does not require log in](./src/images/Git/repo-opened-incognito.png)
 
 ## Planned Improvements
