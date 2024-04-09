@@ -4,7 +4,6 @@ import ItemCard from "./ItemCard/ItemCard";
 import { useMemo, useContext } from "react";
 
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
-import mapApiConditionToType from "../../utils/mapApiConditionToType";
 
 const Main = ({
   weatherTemp,
