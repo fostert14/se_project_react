@@ -68,7 +68,16 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
             value="hot"
             onChange={handleChange}
           />
-          <label htmlFor="hot">Hot</label>
+          <label
+            htmlFor="hot"
+            className={
+              values.weatherType === "hot"
+                ? "modal__radio-button_selected"
+                : "modal__radio-button"
+            }
+          >
+            Hot
+          </label>
         </div>
         <div className="modal__radio-button">
           <input
@@ -78,7 +87,16 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
             value="warm"
             onChange={handleChange}
           />
-          <label htmlFor="warm">Warm</label>
+          <label
+            htmlFor="warm"
+            className={
+              values.weatherType === "warm"
+                ? "modal__radio-button_selected"
+                : "modal__radio-button"
+            }
+          >
+            Warm
+          </label>
         </div>
         <div className="modal__radio-button">
           <input
@@ -88,7 +106,16 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
             value="cold"
             onChange={handleChange}
           />
-          <label htmlFor="cold">Cold</label>
+          <label
+            htmlFor="cold"
+            className={
+              values.weatherType === "cold"
+                ? "modal__radio-button_selected"
+                : "modal__radio-button"
+            }
+          >
+            Cold
+          </label>
         </div>
       </div>
     </ModalWithForm>
