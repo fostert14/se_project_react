@@ -43,6 +43,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [cityName, setCityName] = useState("");
   const [loginFailed, setLoginFailed] = useState(false);
+  const [weatherCondition, setWeatherCondition] = useState("");
 
   const history = useHistory();
 
@@ -229,6 +230,8 @@ function App() {
         const weather = parseWeatherData(data);
         setTemp(weather.temperature);
         setCityName(weather.city);
+        setWeatherCondition(weather.condition);
+        console.log(weatherCondition);
       })
       .catch((error) => {
         console.error("Error fetching weather data", error);
@@ -253,6 +256,7 @@ function App() {
           <Route exact path="/">
             <Main
               weatherTemp={temp}
+              weatherCondition={weatherCondition}
               onSelectCard={handleSelectedCard}
               clothingItems={clothingItems}
               onCardLike={handleCardLike}

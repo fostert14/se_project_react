@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const LoginModal = ({ onClose, onLogin, onSwitchModal, loginFailed }) => {

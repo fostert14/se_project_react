@@ -4,8 +4,15 @@ import ItemCard from "./ItemCard/ItemCard";
 import { useMemo, useContext } from "react";
 
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import mapApiConditionToType from "../../utils/mapApiConditionToType";
 
-const Main = ({ weatherTemp, onSelectCard, clothingItems, onCardLike }) => {
+const Main = ({
+  weatherTemp,
+  onSelectCard,
+  clothingItems,
+  onCardLike,
+  weatherCondition,
+}) => {
   const { currentTempUnit } = useContext(CurrentTemperatureUnitContext);
   const tempValue = weatherTemp?.[currentTempUnit];
 
@@ -29,9 +36,18 @@ const Main = ({ weatherTemp, onSelectCard, clothingItems, onCardLike }) => {
     return item?.weather?.toLowerCase() === weatherType;
   });
 
+  const isDayTime = () => {
+    const hour = new Date().getHours();
+    return hour >= 6 && hour < 18;
+  };
+
   return (
     <main className="main">
-      <WeatherCard day={true} type="sunny" weatherTemp={tempValue} />
+      <WeatherCard
+        day={isDayTime()}
+        type={weatherCondition}
+        weatherTemp={tempValue}
+      />
       <section className="card_section" id="card-section">
         Today is {tempValue} / You may want to wear:
         <div className="card_items">
