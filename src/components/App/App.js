@@ -29,7 +29,7 @@ import {
   removeCardLike,
 } from "../../utils/api.js";
 import EditProfileModal from "../Profile/EditProfileModal/EditProfileModal.js";
-import ProtectedRoute from "../../utils/ProtectedRoute.js";
+import ProtectedRoute from "../ProtectedRoute.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
