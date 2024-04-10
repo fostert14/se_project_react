@@ -49,26 +49,32 @@ function App() {
   const history = useHistory();
 
   const handleUserRegister = ({ name, email, password, avatar }) => {
-    register({ name, email, password, avatar });
-    setIsLoading(true)
+    setIsLoading(true);
+    register({ name, email, password, avatar })
       .then((data) => {
+        console.log("Full registration response", data);
         localStorage.setItem("jwt", data.token);
+        console.log("Registration token:", data.token);
+        console.log("Data.data.token", data.data.token);
         setIsLoggedIn(true);
-        handleCloseModal();
+        return getCurrentUser(data.token);
       })
       .then((userData) => {
+        console.log("UserData", userData);
         setCurrentUser(userData);
+        handleCloseModal();
       })
       .catch((error) => {
         console.error("Registration failed:", error);
+        setLoginFailed(true);
         //Improvement: Handle registration failure (display error message to user)
       })
       .finally(() => setIsLoading(false));
   };
 
   const handleProfileEdit = ({ name, avatar }) => {
-    editProfile({ name, avatar });
-    setIsLoading(true)
+    setIsLoading(true);
+    editProfile({ name, avatar })
       .then((userData) => {
         setCurrentUser(userData);
         handleCloseModal();
@@ -81,15 +87,14 @@ function App() {
   };
 
   const handleUserLogin = ({ email, password }) => {
-    login({ email, password });
-    setIsLoading(true)
+    setIsLoading(true);
+    login({ email, password })
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
         return getCurrentUser(data.token);
       })
       .then((userData) => {
-        console.log("User Data", userData);
         setCurrentUser(userData);
         handleCloseModal();
       })

@@ -1,11 +1,4 @@
-import { getToken, baseUrl } from "./api";
-
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Error ${res.status}`);
-}
+import { getToken, baseUrl, checkResponse } from "./api";
 
 export const register = ({ name, avatar, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
