@@ -54,7 +54,6 @@ function App() {
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
-        setIsLoading(false);
         handleCloseModal();
       })
       .then((userData) => {
@@ -63,7 +62,8 @@ function App() {
       .catch((error) => {
         console.error("Registration failed:", error);
         //Improvement: Handle registration failure (display error message to user)
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleProfileEdit = ({ name, avatar }) => {
@@ -71,13 +71,13 @@ function App() {
     setIsLoading(true)
       .then((userData) => {
         setCurrentUser(userData);
-        setIsLoading(false);
         handleCloseModal();
       })
       .catch((error) => {
         console.error("Registration failed:", error);
         //Improvement: Handle registration failure (display error message to user)
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleUserLogin = ({ email, password }) => {
@@ -91,13 +91,13 @@ function App() {
       .then((userData) => {
         console.log("User Data", userData);
         setCurrentUser(userData);
-        setIsLoading(false);
         handleCloseModal();
       })
       .catch((error) => {
         console.error("Login failed:", error);
         setLoginFailed(true);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleLogout = () => {
