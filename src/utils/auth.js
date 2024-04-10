@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001";
+import { getToken, baseUrl } from "./api";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -6,8 +6,6 @@ function checkResponse(res) {
   }
   return Promise.reject(`Error ${res.status}`);
 }
-
-const getToken = () => localStorage.getItem("jwt");
 
 export const register = ({ name, avatar, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
@@ -26,6 +24,15 @@ export const login = ({ email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
+  }).then(checkResponse);
+};
+
+export const getCurrentUser = (token) => {
+  return fetch(`${baseUrl}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   }).then(checkResponse);
 };
 

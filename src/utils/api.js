@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001";
+export const baseUrl = "http://localhost:3001";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -7,7 +7,7 @@ function checkResponse(res) {
   return Promise.reject(`Error ${res.status}`);
 }
 
-const getToken = () => localStorage.getItem("jwt");
+export const getToken = () => localStorage.getItem("jwt");
 
 export function request(url, options) {
   return fetch(url, options).then(checkResponse);
@@ -16,15 +16,6 @@ export function request(url, options) {
 export function getItems() {
   return request(`${baseUrl}/items`);
 }
-
-export const getCurrentUser = (token) => {
-  return fetch(`${baseUrl}/users/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  }).then(checkResponse);
-};
 
 export function addItem(item) {
   const token = getToken();
