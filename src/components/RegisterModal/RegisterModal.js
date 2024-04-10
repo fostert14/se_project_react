@@ -31,50 +31,60 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
       onSecondaryButtonClick={onSwitchModal}
     >
       <fieldset className="modal__form-fieldset">
-        <label>Email</label>
-        <input
-          className="modal__form-input"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <label>Password</label>
-        <input
-          className="modal__form-input"
-          type="text"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <label>Confrm Password</label>
-        <input
-          className="modal__form-input"
-          type="text"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Confirm Password"
-          required
-        />
-        <label>Name</label>
-        <input
-          className="modal__form-input"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-          required
-        />
-        <label>Avatar</label>
-        <input
-          className="modal__form-input"
-          type="url"
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-          placeholder="Avatar URL"
-        />
+        <label>
+          Email *
+          <input
+            className="modal__form-input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+        </label>
+        <label>
+          Password *
+          <input
+            className="modal__form-input"
+            type="text"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+        </label>
+        <label>
+          Confrm Password *
+          <input
+            className="modal__form-input"
+            type="text"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm Password"
+            required
+          />
+        </label>
+        <label>
+          Name *
+          <input
+            className="modal__form-input"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+            required
+          />
+        </label>
+        <label>
+          Avatar
+          <input
+            className="modal__form-input"
+            type="url"
+            value={avatar}
+            onChange={(e) => setAvatar(e.target.value)}
+            placeholder="Avatar URL"
+          />
+        </label>
       </fieldset>
     </ModalWithForm>
   );

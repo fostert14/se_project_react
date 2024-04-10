@@ -30,7 +30,7 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
     >
       <fieldset className="modal__form-fieldset">
         <label>
-          Name
+          Name *
           <input
             className="modal__form-input"
             type="text"
@@ -44,7 +44,7 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
           />
         </label>
         <label>
-          Image
+          Image *
           <input
             className="modal__form-input"
             type="url"
@@ -58,7 +58,7 @@ const AddItemModal = ({ onClose, onAddItem, isLoading }) => {
           />
         </label>
       </fieldset>
-      <p className="modal__subheading">Select the weather type</p>
+      <p className="modal__subheading">Select the weather type *</p>
       <div>
         <div className="modal__radio-button" required>
           <input

@@ -27,21 +27,27 @@ const EditProfileModal = ({ onClose, onEdit }) => {
       name="edit profile"
     >
       <fieldset className="modal__form-fieldset">
-        <input
-          className="modal__form-input"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-          required
-        />
-        <input
-          className="modal__form-input"
-          type="url"
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-          placeholder="Avatar URL"
-        />
+        <label>
+          Name *
+          <input
+            className="modal__form-input"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+            required
+          />
+        </label>
+        <label>
+          Avatar *
+          <input
+            className="modal__form-input"
+            type="url"
+            value={avatar}
+            onChange={(e) => setAvatar(e.target.value)}
+            placeholder="Avatar URL"
+          />
+        </label>
       </fieldset>
     </ModalWithForm>
   );

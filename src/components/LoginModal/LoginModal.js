@@ -23,26 +23,28 @@ const LoginModal = ({ onClose, onLogin, onSwitchModal, loginFailed }) => {
       secondaryButtonText={"or Sign  Up"}
     >
       <fieldset className="modal__form-fieldset">
-        <label>Email</label>
-        <input
-          className="modal__form-input"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <label className={loginFailed ? "modal__message" : ""}>
-          {loginFailed ? "Incorrect Password" : "Password"}
+        <label>
+          Email *
+          <input
+            className="modal__form-input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
         </label>
-        <input
-          className={`modal__form-input ${loginFailed ? "input-error" : ""}`}
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Pasword"
-          required
-        />
+        <label className={loginFailed ? "modal__message" : ""}>
+          {loginFailed ? "Incorrect Password" : "Password"} *
+          <input
+            className={`modal__form-input ${loginFailed ? "input-error" : ""}`}
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Pasword"
+            required
+          />
+        </label>
       </fieldset>
     </ModalWithForm>
   );
