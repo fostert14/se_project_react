@@ -21,13 +21,11 @@ import {
   getItems,
   addItem,
   deleteItem,
-  register,
-  login,
   getCurrentUser,
-  editProfile,
   addCardLike,
   removeCardLike,
 } from "../../utils/api.js";
+import { register, login, editProfile } from "../../utils/auth.js";
 import EditProfileModal from "../Profile/EditProfileModal/EditProfileModal.js";
 import ProtectedRoute from "../ProtectedRoute.js";
 
