@@ -49,15 +49,16 @@ function App() {
   const history = useHistory();
 
   const handleUserRegister = ({ name, email, password, avatar }) => {
-    register({ name, email, password, avatar })
+    register({ name, email, password, avatar });
+    setIsLoading(true)
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
-        setActiveModal("");
+        setIsLoading(false);
+        handleCloseModal();
       })
       .then((userData) => {
         setCurrentUser(userData);
-        setActiveModal("");
       })
       .catch((error) => {
         console.error("Registration failed:", error);
@@ -66,10 +67,12 @@ function App() {
   };
 
   const handleProfileEdit = ({ name, avatar }) => {
-    editProfile({ name, avatar })
+    editProfile({ name, avatar });
+    setIsLoading(true)
       .then((userData) => {
         setCurrentUser(userData);
-        setActiveModal("");
+        setIsLoading(false);
+        handleCloseModal();
       })
       .catch((error) => {
         console.error("Registration failed:", error);
@@ -78,7 +81,8 @@ function App() {
   };
 
   const handleUserLogin = ({ email, password }) => {
-    login({ email, password })
+    login({ email, password });
+    setIsLoading(true)
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
@@ -87,7 +91,8 @@ function App() {
       .then((userData) => {
         console.log("User Data", userData);
         setCurrentUser(userData);
-        setActiveModal("");
+        setIsLoading(false);
+        handleCloseModal();
       })
       .catch((error) => {
         console.error("Login failed:", error);
