@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useForm } from "../../../src/hooks/useForm";
 
 const LoginModal = ({ onClose, onLogin, onSwitchModal, loginFailed }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { values, handleChange } = useForm({
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onLogin({ email, password });
+    onLogin({ email: values.email, password: values.password });
   };
 
   return (
@@ -24,23 +27,25 @@ const LoginModal = ({ onClose, onLogin, onSwitchModal, loginFailed }) => {
     >
       <fieldset className="modal__form-fieldset">
         <label>
-          Email *
+          Email
           <input
             className="modal__form-input"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={values.name}
+            onChange={handleChange}
             placeholder="Email"
             required
           />
         </label>
         <label className={loginFailed ? "modal__message" : ""}>
-          {loginFailed ? "Incorrect Password" : "Password"} *
+          {loginFailed ? "Incorrect Password" : "Password"}
           <input
             className={`modal__form-input ${loginFailed ? "input-error" : ""}`}
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={values.name}
+            onChange={handleChange}
             placeholder="Pasword"
             required
           />

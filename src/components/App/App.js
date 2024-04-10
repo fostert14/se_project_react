@@ -212,6 +212,7 @@ function App() {
       getCurrentUser(token)
         .then((userData) => {
           setCurrentUser(userData);
+          console.log(userData);
         })
         .catch((error) => {
           console.error("Failed to fetch user data", error);

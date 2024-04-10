@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useForm } from "../../hooks/useForm";
 
 const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
-  const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const { values, handleChange } = useForm({
+    name: "",
+    avatar: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (values.password !== values.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
-    onRegister({ name, email, password, avatar });
+    onRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      avatar: values.avatar,
+    });
   };
 
   return (
@@ -36,8 +44,9 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           <input
             className="modal__form-input"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={values.email}
+            onChange={handleChange}
             placeholder="Email"
             required
           />
@@ -47,8 +56,9 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           <input
             className="modal__form-input"
             type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={values.password}
+            onChange={handleChange}
             placeholder="Password"
             required
           />
@@ -58,8 +68,9 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           <input
             className="modal__form-input"
             type="text"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            name="confirmPassword"
+            value={values.confirmPassword}
+            onChange={handleChange}
             placeholder="Confirm Password"
             required
           />
@@ -69,8 +80,9 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           <input
             className="modal__form-input"
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={values.name}
+            onChange={handleChange}
             placeholder="Name"
             required
           />
@@ -80,9 +92,11 @@ const RegisterModal = ({ onClose, onRegister, onSwitchModal }) => {
           <input
             className="modal__form-input"
             type="url"
-            value={avatar}
-            onChange={(e) => setAvatar(e.target.value)}
+            name="avatar"
+            value={values.avatar}
+            onChange={handleChange}
             placeholder="Avatar URL"
+            required
           />
         </label>
       </fieldset>
